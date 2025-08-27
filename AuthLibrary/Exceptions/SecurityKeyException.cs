@@ -1,6 +1,6 @@
 using System;
 
-namespace Cority.AuthLibrary.Exceptions
+namespace AuthLibrary.Exceptions
 {
     /// <summary>
     /// Exception thrown for security key-related errors.
