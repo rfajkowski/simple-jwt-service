@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AuthLibrary\Cority.AuthLibrary.csproj" />
+    <ProjectReference Include="..\AuthLibrary\AuthLibrary.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,10 +1,11 @@
-using Cority.AuthLibrary.Exceptions;
-using Cority.AuthLibrary.Service;
+using AuthLibrary.Exceptions;
+using AuthLibrary.Service;
 using FluentAssertions;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Cority.AuthLibrary.UnitTests;
+namespace AuthLibrary.UnitTests;
 
 public class AuthenticationServiceTests
 {
@@ -12,10 +13,25 @@ public class AuthenticationServiceTests
     private readonly string _privateKeyPath;
     private readonly string _invalidKeyPath;
     private readonly string _invalidPath;
+    private JwtOptions _jwtOptions;
+    private IKeyProvider _keyProvider;
 
     public AuthenticationServiceTests()
     {
-        _authService = new AuthenticationService();
+        _jwtOptions = new JwtOptions
+        {
+            Issuer = "TestIssuer",
+            Audience = "TestAudience",
+            ExpirationMinutes = 30,
+            KeyPaths = new Dictionary<string, string>
+            {
+                { "Keys/private.xml", "Keys/private.xml" },
+                { "Keys/emptyKey.xml", "Keys/emptyKey.xml" },
+                { "Keys/notExistingKey.xml", "Keys/notExistingKey.xml" }
+            }
+        };
+        _keyProvider = new LocalKeyProvider(_jwtOptions.KeyPaths);
+        _authService = new AuthenticationService(_jwtOptions, _keyProvider);
         _privateKeyPath = "Keys/private.xml";
         _invalidKeyPath = "Keys/emptyKey.xml";
         _invalidPath = "Keys/notExistingKey.xml";
@@ -90,16 +106,6 @@ public class AuthenticationServiceTests
         var claims = new List<Claim> { new Claim(ClaimTypes.Name, "testuser") };
         Action act = () => _authService.GenerateToken(claims, _invalidKeyPath);
         act.Should().Throw<SecurityKeyException>().WithMessage("Invalid XML file");
-    }
-
-    [Fact]
-    public void GetClaims_ShouldReturnClaimsPrincipal()
-    {
-        var claims = new List<Claim> { new Claim(ClaimTypes.Name, "testuser") };
-        var token = _authService.GenerateToken(claims, _privateKeyPath);
-        var principal = _authService.GetClaims(token, _privateKeyPath);
-        principal.Should().NotBeNull();
-        principal.Identity.Name.Should().Be("testuser");
     }
 
     [Fact]

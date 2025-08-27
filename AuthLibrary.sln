@@ -1,11 +1,10 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cority.AuthLibrary", "AuthLibrary\Cority.AuthLibrary.csproj", "{99900C84-B5DE-496A-AE55-7E1A9558388B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthLibrary", "AuthLibrary\AuthLibrary.csproj", "{99900C84-B5DE-496A-AE55-7E1A9558388B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cority.AuthLibrary.UnitTests", "AuthLibrary.UnitTests\Cority.AuthLibrary.UnitTests.csproj", "{C503AD38-1FA2-42AD-B6AA-0AB34B0AB438}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthLibrary.UnitTests", "AuthLibrary.UnitTests\Cority.AuthLibrary.UnitTests.csproj", "{C503AD38-1FA2-42AD-B6AA-0AB34B0AB438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
